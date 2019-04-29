@@ -20,3 +20,10 @@ Print a message:
 September 2016.".
 """
 
+call_durations = [row[3] for row in calls]
+call_durations = list(map(int, call_durations))
+mymax = max(call_durations)
+max_index = call_durations.index(mymax)
+
+print("{} spent the longest time, {} seconds, on the phone during September 2016.".format(calls[max_index][0], mymax))
+

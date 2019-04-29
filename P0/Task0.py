@@ -1,3 +1,5 @@
+import numpy as np
+
 """
 Read file into texts and calls.
 It's ok if you don't understand how to read files.
@@ -19,4 +21,16 @@ Print messages:
 "First record of texts, <incoming number> texts <answering number> at time <time>"
 "Last record of calls, <incoming number> calls <answering number> at time <time>, lasting <during> seconds"
 """
+
+# print(texts[0])
+# print(np.shape(texts))
+# print(calls[0])
+# print(np.shape(calls))
+
+print("First record of texts, {} texts {} at time {}".format(texts[0][0], texts[0][1], texts[0][2]))
+print("Last record of calls, {} calls {} at time {}, lasting {} seconds".format(calls[-1][0],
+                                                                                calls[-1][1],
+                                                                                calls[-1][2],
+                                                                                calls[-1][3]))
+
 

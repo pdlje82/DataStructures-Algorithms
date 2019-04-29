@@ -20,7 +20,7 @@ Print a message:
 """
 d = {}
 for e in texts:
-    for number in e[0:1]:
+    for number in e[0:2]:
         if number in d:
             d[number] += 1
         else:
@@ -29,7 +29,7 @@ for e in texts:
 
 
 for e in calls:
-    for number in e[0:1]:
+    for number in e[0:2]:
         if number in d:
             d[number] += 1
         else:

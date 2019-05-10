@@ -24,7 +24,7 @@ for e in texts:
         if number in d:
             d[number] += 1
         else:
-            d[number] = 1
+            d[number] = 1  # O(n)
 
 
 
@@ -33,6 +33,6 @@ for e in calls:
         if number in d:
             d[number] += 1
         else:
-            d[number] = 1
+            d[number] = 1  # O(n)
 
 print("There are {} different telephone numbers in the records.".format(len(d.keys())))

@@ -38,7 +38,7 @@ d = {}
 for e in calls:
     if '080' in e[0]:
         if e[1] not in d:
-            d[e[1]] = True
+            d[e[1]] = True  # O(n)
 
 d1 = {}
 for key in d:
@@ -50,10 +50,10 @@ for key in d:
             d1['140'] = 'telemarketing'
     elif key[0] == '(':
         if key[key.find("("):key.find(")")+1] not in d1:
-            d1[key[key.find("("):key.find(")")+1]] = 'landline'
+            d1[key[key.find("("):key.find(")")+1]] = 'landline'  # O(k)
 
 print("The numbers called by people in Bangalore have codes:")
-for key in sorted(d1.keys()):
+for key in sorted(d1.keys()):  # O(k log k)
     print(key)
 
 
@@ -74,7 +74,7 @@ for e in calls:
     if '080' in e[0]:
         callers += 1
         if '080' in e[1]:
-            receivers += 1
+            receivers += 1  # O(n)
 
 print("{} percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore.".
       format(100 / callers * receivers))

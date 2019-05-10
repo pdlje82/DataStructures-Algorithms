@@ -10,10 +10,9 @@ O(n) because algorithm has go to exactly once through all n list entries
 Task 2:
 Which telephone number spent the longest time on the phone:
 
-O(n log n) because
-O(n) to go through all records and create a list with the call durations, then
+O(n) to go through all records and create a dict with numbers and overall call durations
 O(n) to find the maximum and save the index
-O(n) + O(n) ~ O(n)
+OVERALL: O(n) + O(n) ~ O(n)
 
 Task 3:
 Part A: Find all of the area codes and mobile prefixes called by people in Bangalore:
@@ -22,10 +21,12 @@ O(n) to create dict with all numbers called by 080 as keys
 O(k) to go through said dict and categorize the number keys in landline, telemarketing and mobile, creating a new dict
 which is used to store the area codes and mobile prefixes only (as dict keys)
 O(k log k) to sort all dict keys
+OVERALL: O(n log n) in the worst case
 
 Part B: Of all the calls made from a number starting with "(080)", what percentage of these calls
 were made to a number also starting with "(080)"?:
 O(n) go through the records once and check for each 080 caller, if the receiver was 080, too
+OVERALL: O(n)
 
 Task 4:
 Create a set of possible telemarketers: these are numbers that make outgoing calls but never send texts,
@@ -33,6 +34,7 @@ receive texts or receive incoming calls.
 O(n) to go though all "innocent" numbers and store each one once in a dict
 O(k) to go through all caller numbers, check if they are in the above dict, and if not, store them in a new dict
 O(k log k) to sort them
+OVERALL: O(n log n) in the worst case
 
 
 

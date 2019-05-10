@@ -20,10 +20,20 @@ Print a message:
 September 2016.".
 """
 
-call_durations = [row[3] for row in calls]  # O(n)
-call_durations = list(map(int, call_durations))
-mymax = max(call_durations)  # O(n)
-max_index = call_durations.index(mymax)
+d = {}
+for e in calls:
+    for number in e[0:2]:  # O(2)
+        #print(number)
+        if number not in d:
+            d[number] = int(e[3])
+        else:
+            d[number] += int(e[3])
 
-print("{} spent the longest time, {} seconds, on the phone during September 2016.".format(calls[max_index][0], mymax))
+# for keys, values in d.items():
+#     print(keys)
+#     print(values)
+
+max_caller = max(d, key=d.get)
+
+print("{} spent the longest time, {} seconds, on the phone during September 2016.".format(max_caller, d[max_caller]))
 

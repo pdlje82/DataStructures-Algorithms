@@ -44,7 +44,7 @@ d1 = {}
 for key in d:
     if key[0] is '7' or key[0] is '8' or key[0] is '9':
         if key[0:4] not in d1:
-            d1[key[0:5]] = 'mobile'  # [0:4] would be more correct, but [0:5] saves also 'space' character
+            d1[key[0:4]] = 'mobile'  # [0:4] would be more correct, but [0:5] saves also 'space' character
     elif key[0:3] is '140':
         if '140' not in d1:
             d1['140'] = 'telemarketing'

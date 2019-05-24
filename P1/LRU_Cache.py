@@ -24,28 +24,40 @@ class LRU_Cache(object):
     def get(self, key):
         # Retrieve item from provided key. Return -1 if nonexistent.
         if key in self.hash:
-            self.q.append(key)
-            self.check_size()
+            self.reorder_key(key)
+            print(self.hash[key])
             return self.hash[key]
         else:
+            print(-1)
             return -1
 
     def set(self, key, value):
         # Set the value if the key is not present in the cache.
         if key not in self.hash:
+            self.check_size()
             self.hash[key] = value
-        self.q.append(key)
-        self.check_size()
+            self.q.append(key)
+        else:
+            self.reorder_key(key)
 
     def check_size(self):
-        if len(self.q) > self.size:
+        if len(self.q) == self.size:
             del self.hash[self.q.pop(0)]
 
+    def reorder_key(self, key):
+        print('queue before reorder: ', self.q)
+        key_index = self.q.index(key)  # find referenced key in queue
+        self.q.pop(key_index)  # remove reference key from queue
+        self.q.append(key)  # append referenced key to the end of the queue
+        print('queue after reorder: ', self.q)
 
 our_cache = LRU_Cache(5)
 
-our_cache.set(1, 1)
-our_cache.set(2, 2)
-our_cache.get(1)       # returns 1
-our_cache.get(2)       # returns 2
+our_cache.set(1, 'abba')
+our_cache.set(2, 'baab')
+our_cache.set(5, 'cappa')
+our_cache.set(9, 'yippie')
+our_cache.set(5, 'cappa')
+our_cache.get(1)       # returns abba
+our_cache.get(2)       # returns baab
 our_cache.get(3)       # return -1

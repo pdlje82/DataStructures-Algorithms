@@ -1,17 +1,4 @@
-"""
-We use two data structures to implement an LRU Cache.
 
-    1. Queue which is implemented using a python list. The maximum size of the queue will be equal to the
-    total number of hash entries available (cache size).The most recently used items will be near the read
-    end, and the least recent items will be near the front end.
-
-         self.q = []
-         len(self.q)          # size of the queue
-         self.q.append(item)  # enqueue item at end of queue
-         self.q.pop(0)        # dequeue item at front of queue
-
-    2. A hash (dict) with page number as key and address of the corresponding queue node as value.
-"""
 
 
 class LRU_Cache(object):

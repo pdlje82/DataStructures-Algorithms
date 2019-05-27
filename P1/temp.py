@@ -1,6 +1,4 @@
-import os
+current_code = 'sdg spodoigbsdrgsebpsoihes'
 
-dir_list = ['.\\testdir']
-dir_list += os.listdir('.\\testdir')
+print(current_code.pop(0))
 
-print(dir_list)

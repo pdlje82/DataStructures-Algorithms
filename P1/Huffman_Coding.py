@@ -57,27 +57,18 @@ def huffman_encoding(data):
         encoded_text += encode_dict[char]
 
     sleep(0.5)
-    return encoded_text, root
+    return encoded_text, decode_dict
 
 
-def huffman_decoding(data, node):
-    char_string = ""
-    stack = []
-    stack.append(node)
-    if node.char is not None:
-        return node.char
-
+def huffman_decoding(data, decode_dict):
+    code = ''
+    char_string = ''
     for bit in data:
-        if bit == '0':
-            # traverse left
-            node = node.left
-        elif bit == '1':
-            # traverse right
-            node = node.right
-        if node.char is not None:
-            char_string += node.char
-            print(char_string)
-
+        code += bit
+        if code in decode_dict:
+            char = decode_dict[code]
+            char_string += char
+            code = ''
     return char_string
 
 
@@ -101,12 +92,12 @@ if __name__ == "__main__":
     print ("The size of the data is: {}\n".format(sys.getsizeof(a_great_sentence)))
     print ("The content of the data is: {}\n".format(a_great_sentence))
 
-    encoded_data, tree = huffman_encoding(a_great_sentence)
+    encoded_data, decode_dict = huffman_encoding(a_great_sentence)
 
     print ("The size of the encoded data is: {}\n".format(sys.getsizeof(int(encoded_data, base=2))))
     print ("The content of the encoded data is: {}\n".format(encoded_data))
 
-    decoded_data = huffman_decoding(encoded_data, tree)
+    decoded_data = huffman_decoding(encoded_data, decode_dict)
 
     print ("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
     print ("The content of the encoded data is: {}\n".format(decoded_data))

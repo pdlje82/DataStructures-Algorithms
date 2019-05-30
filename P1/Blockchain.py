@@ -3,7 +3,6 @@ import time
 
 
 class Block:
-
     def __init__(self, data):
         self.timestamp = None
         self.data = data
@@ -21,7 +20,6 @@ class Block:
 
 
 class Blockchain:
-
     def __init__(self):
         self.head = None
         self.last = None
@@ -49,7 +47,6 @@ class Blockchain:
         # if block.previous_hash is None:
         self.print_block(block)
 
-
     def print_block(self, block):
         print('timestamp: {}\ndata: {}\nprevious hash: {}\ncurrent hash: {}\n'.format(
             block.timestamp,
@@ -57,7 +54,6 @@ class Blockchain:
             block.previous_hash,
             block.hash))
         time.sleep(0.1)
-
 
 
 # Create a blockchain

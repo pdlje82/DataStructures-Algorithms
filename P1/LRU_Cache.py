@@ -1,4 +1,4 @@
-
+from collections import deque
 
 
 class LRU_Cache(object):
@@ -6,7 +6,7 @@ class LRU_Cache(object):
         # Initialize class variables
         self.size = capacity  # cache size = queue size
         self.hash = {}
-        self.q = []
+        self.q = deque()
 
     def get(self, key):
         # Retrieve item from provided key. Return -1 if nonexistent.
@@ -29,12 +29,11 @@ class LRU_Cache(object):
 
     def check_size(self):
         if len(self.q) == self.size:
-            del self.hash[self.q.pop(0)]
+            del self.hash[self.q.popleft()]
 
     def reorder_key(self, key):
         print('queue before reorder: ', self.q)
-        key_index = self.q.index(key)  # find referenced key in queue
-        self.q.pop(key_index)  # remove reference key from queue
+        self.q.remove(key)  # remove first occurence from queue
         self.q.append(key)  # append referenced key to the end of the queue
         print('queue after reorder: ', self.q)
 

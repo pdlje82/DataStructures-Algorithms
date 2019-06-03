@@ -24,7 +24,7 @@ def find_files(suffix, path, dir_list=None):
     if not isinstance(path, str):
         print('Not a valid path')
         return
-
+    
     file_list = []
     pop_list = []
     srch_results = []

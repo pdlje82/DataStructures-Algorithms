@@ -67,6 +67,9 @@ class LinkedList:
 
 def union(llist_1, llist_2):
     # Your Solution Here
+    if llist_1.size() == 0 or llist_2.size() == 0:
+        print('Cannot execute union with empty list')
+        return
     union_list = LinkedList()
     for e in llist_1, llist_2:
         node = e.head
@@ -81,6 +84,9 @@ def union(llist_1, llist_2):
 
 def intersection(llist_1, llist_2):
     # Your Solution Here
+    if llist_1.size() == 0 or llist_2.size() == 0:
+        print('Cannot execute intersection with empty list')
+        return
     intersect_list = LinkedList()
     node = llist_1.head
     while node.next:
@@ -95,7 +101,7 @@ def intersection(llist_1, llist_2):
 
 
 # Test case 1
-
+print('\nTest Case 1_________________________________________________________________')
 linked_list_1 = LinkedList()
 linked_list_2 = LinkedList()
 
@@ -114,12 +120,31 @@ print('union: ', union(linked_list_1, linked_list_2))
 print('intersection: ', intersection(linked_list_1, linked_list_2))
 
 # Test case 2
-
+print('\nTest Case 2_________________________________________________________________')
 linked_list_3 = LinkedList()
 linked_list_4 = LinkedList()
 
 element_1 = [1, 1, 1, 8, 1, 21, 1, 1, 1, 21]
 element_2 = [1, 7, 8, 9, 11, 21, 1]
+
+for i in element_1:
+    linked_list_3.append(i)
+
+for i in element_2:
+    linked_list_4.append(i)
+
+print(linked_list_3, '\n', linked_list_4)
+
+print('union: ', union(linked_list_3, linked_list_4))
+print('intersection: ', intersection(linked_list_3, linked_list_4))
+
+# Test case 3
+print('\nTest Case 3_________________________________________________________________')
+linked_list_3 = LinkedList()
+linked_list_4 = LinkedList()
+
+element_1 = []
+element_2 = []
 
 for i in element_1:
     linked_list_3.append(i)

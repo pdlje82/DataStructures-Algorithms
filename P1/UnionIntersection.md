@@ -13,3 +13,6 @@ Overall complexity: O(n) + O(n) = O(n)
 2. for each element in llist1 go thru llist 2 and check, if the element is also there: O(n^2)
 
 Overall complexity: O(n^2) in the worst case
+
+### Space Complexity
+O(n) for 2 python lists and 2 linked lists

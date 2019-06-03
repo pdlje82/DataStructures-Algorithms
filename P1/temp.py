@@ -1,4 +1,4 @@
-element_1 = [3, 2, 4, 35, 6, 65, 6, 4, 3]
+encoded_data = None
+decode_dict = None
 
-
-print(len(element_1) // 2)
+print((encoded_data and decode_dict) is None)

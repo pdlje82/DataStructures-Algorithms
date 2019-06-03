@@ -20,6 +20,9 @@ def find_files(suffix, path, dir_list=None):
     """
     print('Starting find_files')
     print('current path: ', path)
+    if not isinstance(path, str):
+        print('Not a valid path')
+        return
     file_list = []
     pop_list = []
     srch_results = []
@@ -67,9 +70,23 @@ srch_results = find_files(suffix, path)
 
 print(srch_results)
 
+print('\n__________________________________________________________________________'
+      '\n__________________________________________________________________________')
 
+path = '.\\testdir\\subdir4'
+suffix = '.c'
+srch_results = find_files(suffix, path)
 
+print(srch_results)
 
+print('\n__________________________________________________________________________'
+      '\n__________________________________________________________________________')
+
+path = None
+suffix = '.c'
+srch_results = find_files(suffix, path)
+
+print(srch_results)
 
 # Let us print the files in the directory in which you are running this script
 # print (os.listdir("."))

@@ -20,9 +20,11 @@ def find_files(suffix, path, dir_list=None):
     """
     print('Starting find_files')
     print('current path: ', path)
+
     if not isinstance(path, str):
         print('Not a valid path')
         return
+
     file_list = []
     pop_list = []
     srch_results = []

@@ -9,8 +9,7 @@ def huffman_encoding(data):
         return None, None
     # create dict with frequencies for each character
     character_freqs = Counter(data)
-    if len(character_freqs) < 2:
-        return None, None
+    #print('character_freqs: ', character_freqs)
 
     # create and fill priority queue
     h = []  # create heap (priority queue)
@@ -20,24 +19,32 @@ def huffman_encoding(data):
     # create node for each character and push to heap
     for key in character_freqs:
         node = Node(char=key, freq=character_freqs[key])
+        # sleep(0.5)
+        # print('nodechar.: {} - freq.: {}; '.format(node.char, node.freq))
         heappush(h, node)
 
     # build tree
-    while len(h) > 1:
+    if len(h) == 1:
         l_node = heappop(h)
-        # print('left node :', l_node.char, l_node.freq)
-        r_node = heappop(h)
-        # print('right node: ', r_node.char, r_node.freq)
-        merged = Node(None, l_node.freq + r_node.freq)
-        # print('merged node: ', merged.char, merged.freq)
-        merged.left = l_node
-        merged.right = r_node
-        heappush(h, merged)
-
-    root = heappop(h)
-    # print('root note left char.: {} - freq.: {}; '
-    #      'right char.: {} - freq.: {}'.format(root.left.char, root.left.freq,
-    #                                           root.right.char, root.right.freq))
+        root = Node(None, l_node.freq)
+        root.left = l_node
+        # print('root node left char.: {} - freq.: {}; '.format(root.left.char, root.left.freq))
+    else:
+        while len(h) > 1:
+            l_node = heappop(h)
+            # print('left node :', l_node.char, l_node.freq)
+            r_node = heappop(h)
+            # print('right node: ', r_node.char, r_node.freq)
+            merged = Node(None, l_node.freq + r_node.freq)
+            # print('merged node: ', merged.char, merged.freq)
+            merged.left = l_node
+            merged.right = r_node
+            heappush(h, merged)
+        root = heappop(h)
+    # sleep(0.5)
+    # print('root node left char.: {} - freq.: {}; '
+    #       'right char.: {} - freq.: {}'.format(root.left.char, root.left.freq,
+    #                                            root.right.char, root.right.freq))
     current_code = ""
 
     # traverse tree recursively, building the codes
@@ -59,8 +66,8 @@ def huffman_encoding(data):
     encoded_text = ''
     for char in data:
         encoded_text += encode_dict[char]
-
-    sleep(0.5)
+    # sleep(0.5)
+    # print('encoded_text: ', encoded_text, decode_dict)
     return encoded_text, decode_dict
 
 
@@ -92,23 +99,21 @@ if __name__ == "__main__":
 
 # Test Case 1
     print('Test Case1______________________________________________________________________________')
-    # a_great_sentence = "abccddd"
+    #a_great_sentence = "ab"
     a_great_sentence = "The bird is the word"
 
     print ("The size of the data is: {}\n".format(sys.getsizeof(a_great_sentence)))
     print ("The content of the data is: {}\n".format(a_great_sentence))
 
     encoded_data, decode_dict = huffman_encoding(a_great_sentence)
-    if (encoded_data and decode_dict) is not None:
-        print("The size of the encoded data is: {}\n".format(sys.getsizeof(int(encoded_data, base=2))))
-        print("The content of the encoded data is: {}\n".format(encoded_data))
 
-        decoded_data = huffman_decoding(encoded_data, decode_dict)
+    print("The size of the encoded data is: {}\n".format(sys.getsizeof(int(encoded_data, base=2))))
+    print("The content of the encoded data is: {}\n".format(encoded_data))
 
-        print("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
-        print("The content of the encoded data is: {}\n".format(decoded_data))
-    else:
-        print('No data available')
+    decoded_data = huffman_decoding(encoded_data, decode_dict)
+
+    print("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
+    print("The content of the decoded data is: {}\n".format(decoded_data))
 
     # Test Case 2
     print('Test Case2______________________________________________________________________________')
@@ -117,32 +122,29 @@ if __name__ == "__main__":
     print ("The content of the data is: {}\n".format(a_great_sentence))
 
     encoded_data, decode_dict = huffman_encoding(a_great_sentence)
-    if (encoded_data and decode_dict) is not None:
-        print("The size of the encoded data is: {}\n".format(sys.getsizeof(int(encoded_data, base=2))))
-        print("The content of the encoded data is: {}\n".format(encoded_data))
 
-        decoded_data = huffman_decoding(encoded_data, decode_dict)
+    print("The size of the encoded data is: {}\n".format(sys.getsizeof(int(encoded_data, base=2))))
+    print("The content of the encoded data is: {}\n".format(encoded_data))
 
-        print("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
-        print("The content of the encoded data is: {}\n".format(decoded_data))
-    else:
-        print('No data available')
+    decoded_data = huffman_decoding(encoded_data, decode_dict)
+
+    print("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
+    print("The content of the decoded data is: {}\n".format(decoded_data))
 
     # Test Case 3
     print('Test Case3______________________________________________________________________________')
-    a_great_sentence = ""
+    a_great_sentence = " "
     print ("The size of the data is: {}\n".format(sys.getsizeof(a_great_sentence)))
     print ("The content of the data is: {}\n".format(a_great_sentence))
 
     encoded_data, decode_dict = huffman_encoding(a_great_sentence)
-    if (encoded_data and decode_dict) is not None:
-        print ("The size of the encoded data is: {}\n".format(sys.getsizeof(int(encoded_data, base=2))))
-        print ("The content of the encoded data is: {}\n".format(encoded_data))
 
-        decoded_data = huffman_decoding(encoded_data, decode_dict)
+    print ("The size of the encoded data is: {}\n".format(sys.getsizeof(int(encoded_data, base=2))))
+    print ("The content of the encoded data is: {}\n".format(encoded_data))
 
-        print ("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
-        print ("The content of the encoded data is: {}\n".format(decoded_data))
-    else:
-        print('No data available')
+    decoded_data = huffman_decoding(encoded_data, decode_dict)
+
+    print ("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
+    print ("The content of the encoded data is: {}\n".format(decoded_data))
+
 

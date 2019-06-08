@@ -1,3 +1,1 @@
-path = 'asrg wt '
-
-print(isinstance(path, str))
+print(2 * (1 + 1))

@@ -52,7 +52,6 @@ def is_user_in_group(user, group):
         return is_user_in_group(user, sub_gr)
 
 
-
 parent = Group("parent")
 child = Group("child")
 child2 = Group("child2")

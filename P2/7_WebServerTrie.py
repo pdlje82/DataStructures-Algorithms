@@ -1,3 +1,5 @@
+import os
+
 """
 HTTPRouter using a Trie
 
@@ -34,24 +36,53 @@ is fine.
 
 # A RouteTrie will store our routes and their associated handlers
 class RouteTrie:
-    def __init__(self, ...):
+    def __init__(self, handler):
         # Initialize the trie with an root node and a handler, this is the root path or home page node
+        print('TRIE.__init__: create root node')
+        self.root = RouteTrieNode(handler)
+        print('TRIE.__init__: root child added')
+        self.root.children['/'] =
+        print('TRIE.__init__: root node created with child "{}" and handler "{}"'
+              .format(self.root.children, self.root.handler))
 
-    def insert(self, ...):
+    def insert(self, path_list, handler):
         # Similar to our previous example you will want to recursively add nodes
         # Make sure you assign the handler to only the leaf (deepest) node of this path
+        current_node = self.root
+        print('TRIE: current node handler is: ', current_node.handler)
+        for path_segment in path_list:
+            if path_segment not in current_node.children:
+                print('TRIE.insert: path_segment not found. Inserting path_segment "{}" in node children'
+                      .format(path_segment))
+                current_node.insert(path_segment)
+            current_node = current_node.children[path_segment]
+            print('TRIE.insert: new node active with handler "{}"'.format(current_node.handler))
+        current_node.handler = handler
+        print('TRIE.insert: changed handler to "{}"'.format(current_node.handler))
 
-    def find(self, ...):
+    def find(self, path_list):
         # Starting at the root, navigate the Trie to find a match for this path
         # Return the handler for a match, or None for no match
+        c_node = self.root
+        for path_segment in path_list:
+            if path_segment in c_node.children:
+                c_node = c_node.children[path_segment]
+            else:
+                return None
+        return c_node.handler
+
 
 # A RouteTrieNode will be similar to our autocomplete TrieNode... with one additional element, a handler.
 class RouteTrieNode:
-    def __init__(self, ...):
+    def __init__(self, handler=None):
         # Initialize the node with children as before, plus a handler
+        self.children = {}
+        self.handler = handler
+        print('NODE.__init__: init new node with handler "{}" and "children" {}'.format(self.handler, self.children))
 
-    def insert(self, ...):
-        # Insert the node as before
+    def insert(self, path_segment):
+        # Add a child node in this Trie
+        self.children[path_segment] = RouteTrieNode()
 
 """
 Next we need to implement the actual Router. The router will initialize itself with a RouteTrie for holding routes
@@ -69,42 +100,62 @@ Requests for '' or '/' are probably looking for the root handler. Handle these e
 
 # The Router class will wrap the Trie and handle
 class Router:
-    def __init__(self, ...):
+    def __init__(self, root_handler):
         # Create a new RouteTrie for holding our routes
+        print('ROUTER.__init__: Init Router class with RouteTrie')
+        self.routes = RouteTrie(handler=root_handler)
+
         # You could also add a handler for 404 page not found responses as well!
 
-    def add_handler(self, ...):
+    def add_handler(self, path, handler):
         # Add a handler for a path
         # You will need to split the path and pass the pass parts
         # as a list to the RouteTrie
+        path_list = self.split_path(path)
+        print('ROUTER.add_handler: TODO: inserting path {} and add handler "{}"'.format(path_list, handler))
+        self.routes.insert(path_list, handler)
 
-    def lookup(self, ...):
+    def lookup(self, path):
         # lookup path (by parts) and return the associated handler
         # you can return None if it's not found or
         # return the "not found" handler if you added one
         # bonus points if a path works with and without a trailing slash
         # e.g. /about and /about/ both return the /about handler
+        path_list = self.split_path(path)
+        print('ROUTER.lookup: ', path_list)
+        self.routes.find(path_list)
 
-
-    def split_path(self, ...):
+    def split_path(self, path):
         # you need to split the path into parts for
         # both the add_handler and loopup functions,
         # so it should be placed in a function here
+        if path is not '/':
+            path = os.path.normpath(path)
+            path_list = path.split(os.sep)
+            path_list[0] = '/'
+        else:
+            path_list = ['/']
+        print('ROUTER.split_path: splitting path in: ', path_list)
+        return path_list
+
 
 # Test Cases
 
-        # Here are some test cases and expected outputs you can use to test your implementation
+# Here are some test cases and expected outputs you can use to test your implementation
 
-        # create the router and add a route
-        router = Router("root handler",
-                        "not found handler")  # remove the 'not found handler' if you did not implement this
-        router.add_handler("/home/about", "about handler")  # add a route
+# create the router and add a route
+router = Router("root handler")
+                # "not found handler")  # remove the 'not found handler' if you did not implement this
+print('\nAdding new path and handler...\n')
+router.add_handler("/home/about", "about handler")  # add a route
 
-        # some lookups with the expected output
-        print(router.lookup("/"))  # should print 'root handler'
-        print(router.lookup("/home"))  # should print 'not found handler' or None if you did not implement one
-        print(router.lookup("/home/about"))  # should print 'about handler'
-        print(router.lookup(
-            "/home/about/"))  # should print 'about handler' or None if you did not handle trailing slashes
-        print(router.lookup("/home/about/me"))  # should print 'not found handler' or None if you did not implement one
+# some lookups with the expected output
+print('\nLooking up path...\n')
+print(router.lookup("/"))  # should print 'root handler'
+#print('\nLooking up path...\n')
+# print(router.lookup("/home"))  # should print 'not found handler' or None if you did not implement one
+# print(router.lookup("/home/about"))  # should print 'about handler'
+# print(router.lookup(
+#     "/home/about/"))  # should print 'about handler' or None if you did not handle trailing slashes
+# print(router.lookup("/home/about/me"))  # should print 'not found handler' or None if you did not implement one
 

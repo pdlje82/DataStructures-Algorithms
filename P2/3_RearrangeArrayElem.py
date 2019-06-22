@@ -33,13 +33,6 @@ def re_array(input_list):
     return [int(first), int(second)]
 
 
-def test_function(test_case):
-    if re_array(test_case[0]) == test_case[1]:
-        print("Pass")
-    else:
-        print("Fail")
-
-
 def mergesort(items):
     if len(items) <= 1:
         return items
@@ -71,6 +64,14 @@ def merge(left, right):
     merged += right[right_index:]
 
     return merged
+
+
+
+def test_function(test_case):
+    if re_array(test_case[0]) == test_case[1]:
+        print("Pass")
+    else:
+        print("Fail")
 
 
 test_function([[5, 1, 4, 3, 2, 9, 6, 8, 7, 0], [97531, 86420]])

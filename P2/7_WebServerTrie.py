@@ -34,6 +34,20 @@ is fine.
 
 """
 
+
+# A RouteTrieNode will be similar to our autocomplete TrieNode... with one additional element, a handler.
+class RouteTrieNode:
+    def __init__(self, handler=None):
+        # Initialize the node with children as before, plus a handler
+        self.children = {}
+        self.handler = handler
+        print('NODE.__init__: init new node with handler "{}" and "children" {}'.format(self.handler, self.children))
+
+    def insert(self, path_segment):
+        # Add a child node in this Trie
+        self.children[path_segment] = RouteTrieNode()
+
+
 # A RouteTrie will store our routes and their associated handlers
 class RouteTrie:
     def __init__(self, handler):
@@ -41,7 +55,7 @@ class RouteTrie:
         print('TRIE.__init__: create root node')
         self.root = RouteTrieNode(handler)
         print('TRIE.__init__: root child added')
-        self.root.children['/'] =
+        # self.root.children['/'] =
         print('TRIE.__init__: root node created with child "{}" and handler "{}"'
               .format(self.root.children, self.root.handler))
 
@@ -63,26 +77,21 @@ class RouteTrie:
     def find(self, path_list):
         # Starting at the root, navigate the Trie to find a match for this path
         # Return the handler for a match, or None for no match
-        c_node = self.root
-        for path_segment in path_list:
-            if path_segment in c_node.children:
-                c_node = c_node.children[path_segment]
+        if path_list == ['']:
+            print('TRIE.find: empty path_list')
+            return self.root.handler
+        else:
+            c_node = self.root
+            print('TRIE.find: non-empty path_list: {}'.format(path_list))
+            for path_segment in path_list:
+                if path_segment in c_node.children:
+                    c_node = c_node.children[path_segment]
+                else:
+                    return 'not found handler'
+            if c_node.handler is None:
+                return 'not found handler'
             else:
-                return None
-        return c_node.handler
-
-
-# A RouteTrieNode will be similar to our autocomplete TrieNode... with one additional element, a handler.
-class RouteTrieNode:
-    def __init__(self, handler=None):
-        # Initialize the node with children as before, plus a handler
-        self.children = {}
-        self.handler = handler
-        print('NODE.__init__: init new node with handler "{}" and "children" {}'.format(self.handler, self.children))
-
-    def insert(self, path_segment):
-        # Add a child node in this Trie
-        self.children[path_segment] = RouteTrieNode()
+                return c_node.handler
 
 """
 Next we need to implement the actual Router. The router will initialize itself with a RouteTrie for holding routes
@@ -123,7 +132,7 @@ class Router:
         # e.g. /about and /about/ both return the /about handler
         path_list = self.split_path(path)
         print('ROUTER.lookup: ', path_list)
-        self.routes.find(path_list)
+        return self.routes.find(path_list)
 
     def split_path(self, path):
         # you need to split the path into parts for
@@ -131,10 +140,10 @@ class Router:
         # so it should be placed in a function here
         if path is not '/':
             path = os.path.normpath(path)
-            path_list = path.split(os.sep)
-            path_list[0] = '/'
+            path_list = path.split(os.sep)[1:]
+            # path_list[0] = '/'
         else:
-            path_list = ['/']
+            path_list = ['']
         print('ROUTER.split_path: splitting path in: ', path_list)
         return path_list
 
@@ -152,10 +161,12 @@ router.add_handler("/home/about", "about handler")  # add a route
 # some lookups with the expected output
 print('\nLooking up path...\n')
 print(router.lookup("/"))  # should print 'root handler'
-#print('\nLooking up path...\n')
-# print(router.lookup("/home"))  # should print 'not found handler' or None if you did not implement one
-# print(router.lookup("/home/about"))  # should print 'about handler'
-# print(router.lookup(
-#     "/home/about/"))  # should print 'about handler' or None if you did not handle trailing slashes
-# print(router.lookup("/home/about/me"))  # should print 'not found handler' or None if you did not implement one
+print('\nLooking up path...\n')
+print(router.lookup("/home"))  # should print 'not found handler' or None if you did not implement one
+print('\nLooking up path...\n')
+print(router.lookup("/home/about"))  # should print 'about handler'
+print('\nLooking up path...\n')
+print(router.lookup("/home/about/"))  # should print 'about handler' or None if you did not handle trailing slashes
+print('\nLooking up path...\n')
+print(router.lookup("/home/about/me"))  # should print 'not found handler' or None if you did not implement one
 

@@ -1,0 +1,13 @@
+    @JanE with the courses you've completed plus this DSA course, you're pretty much capable of getting a software engineer or a machine learning engineer job at an intermediate level. You're underestimating the amount of knowledge you've accumulated. You shouldn't have a problem getting the attention of recruiters with your credentials. However, getting through an interview is the challenge.
+
+    In the software industry, there are really two types of technical interviews:
+
+        A. Interviews with 90% focus on whiteboard DSA problems and system design, and 10% on behavior and cultural fit. Silicon Valley and product-based tech companies in general use this.
+
+        B. Interviews with 80% focus on your experience with specific technologies and frameworks, 10% on behavior and cultural fit, and very little on DSA, if at all. Consulting companies that do contracting and project-based hiring use this. Also, non-tech companies (like banks, insurance, healthcare, etc.) that have in-house software development projects use this as well. They usually call these services-based companies because they don't build products.
+
+    Bashar A.
+
+    1:53 AM
+
+    That said, recruiters who work for Type B would look for specific technologies in your profile. Recruiters of Type A don't care much about that, they care more about your ability for problem solving and learning, and whether you've contributed back to the open-source community.
